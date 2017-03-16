@@ -207,5 +207,47 @@
 
     }
   
+    function cancel_deployment()
+    {
+        //POST /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{deploymentName}/cancel?api-version=2016-09-01
+        throw new Exception('Not implemented');
+    }
+
+    function check_existence()
+    {
+        
+        //HEAD /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{deploymentName}?api-version=2016-09-01
+        throw new Exception('Not implemented');
+    }
+
+    function delete_deployment()
+    {
+        //DELETE /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{deploymentName}?api-version=2016-09-01
+        throw new Exception('Not implemented');
+    }
+
+    function export_template()
+    {
+        //POST /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{deploymentName}/exportTemplate?api-version=2016-09-01
+        throw new Exception('Not implemented');
+    }
+
+    function get_deployment()
+    {
+        //GET /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{deploymentName}?api-version=2016-09-01
+        throw new Exception('Not implemented');
+    }
+
+    function list_deployments()
+    {
+        //GET /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/?api-version=2016-09-01[&$filter&$top]
+        throw new Exception('Not implemented');
+    }
+
+    function validate_deployment()
+    {
+        //POST /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{deploymentName}/validate?api-version=2016-09-01
+        throw new Exception('Not implemented');
+    }
 
 ?>
