@@ -244,10 +244,27 @@
         throw new Exception('Not implemented');
     }
 
-    function validate_deployment()
+    function validate_deployment($subscription_id, $resource_group_name, $deployment_name, $data)
     {
         //POST /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{deploymentName}/validate?api-version=2016-09-01
-        throw new Exception('Not implemented');
+
+        // Initialize curl and set options
+        $curl_opt_array = array(
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_HEADER => 0,
+            CURLOPT_URL => "https://management.azure.com/subscriptions/$subscription_id/resourcegroups/$resource_group_name/providers/Microsoft.Resources/deployments/$deployment_name/validate?api-version=2016-09-01",
+            CURLOPT_HTTPHEADER => array(
+                "Content-type: Application/json",
+                "Authorization: Bearer $access_token"),
+            CURLOPT_POSTFIELDS => $data
+        );
+
+        $resp = make_request($curl_opt_array);
+        
+        print_r($resp);
+
+        return $resp;
     }
 
 ?>
