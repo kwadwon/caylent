@@ -17,11 +17,16 @@
 
     $is_debug = true;
 
-    $access_token = get_auth_token($a_tenant_id, $a_client_id, $a_client_secret);
-    $result = create_resource_group($a_subscription_id,$a_resource_group_name,$access_token,$azure_datacenter_location);
+    function test()
+    {
+        $access_token = get_auth_token($a_tenant_id, $a_client_id, $a_client_secret);
+        $result = create_resource_group($a_subscription_id,$a_resource_group_name,$access_token,$azure_datacenter_location);
 
-    print("Access token\n");
-    var_dump( $access_token);
+        print("Access token\n");
+        var_dump( $access_token);
+
+
+    }
 
     function make_request(array $request_array)
     {
@@ -154,11 +159,11 @@
     }
 
     //https://docs.microsoft.com/en-us/rest/api/resources/deploymentoperations
-    function get_list_deployment_operations()
+    function get_list_deployment_operations($subscription_id, $resource_group_name, $deployment_name, $access_token)
     {
         //https://management.azure.com/subscriptions/$a_subscription_id/resourcegroups/$resource_group_name/deployments/$deployment_name/operations?api-version=2016-09-01
 
-                // Initialize curl and set options
+      // Initialize curl and set options
         $curl_opt_array = array(
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_RETURNTRANSFER => 1,
@@ -179,8 +184,26 @@
     }
 
     //https://docs.microsoft.com/en-us/rest/api/resources/deploymentoperations
-    function get_deployment_operation()
+    function get_deployment_operation($subscription_id, $resource_group_name, $deployment_name, $operation_id ,$access_token)
     {
+        //GET /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/deployments/{deploymentName}/operations/{operationId}?api-version=2016-09-01
+
+              // Initialize curl and set options
+        $curl_opt_array = array(
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_HEADER => 0,
+            CURLOPT_URL => "https://management.azure.com/subscriptions/$subscription_id/resourcegroups/$resource_group_name/deployments/$deployment_name/operations/$operation_id?api-version=2016-09-01",
+            CURLOPT_HTTPHEADER => array(
+                "Content-type: Application/json",
+                "Authorization: Bearer $access_token")
+        );
+
+        $resp = make_request($curl_opt_array);
+        
+        print_r($resp);
+
+        return $resp;
 
     }
   
