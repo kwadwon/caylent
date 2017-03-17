@@ -11,7 +11,7 @@ This README would normally document whatever steps are necessary to get your app
 ### How do I get set up? ###
 
 #### API
-The [Azure Resource Management API's](https://docs.microsoft.com/en-us/rest/api/resources/) Deployment operations and Deployments are all wrapped in the [AzureARMRESTAPI.php](AzureARMRESTAPI.php) file.  This is a flat implementation right over the REST API rather some object oriented wrapper.
+The [Azure Resource Management API's](https://docs.microsoft.com/en-us/rest/api/resources/) [Deployment operations](https://docs.microsoft.com/en-us/rest/api/resources/deploymentoperations) and [Deployments](https://docs.microsoft.com/en-us/rest/api/resources/deployments) are all wrapped in the [AzureARMRESTAPI.php](AzureARMRESTAPI.php) file.  This is a flat implementation right over the REST API rather some object oriented wrapper.  If you look at the code you'll see that each API function has a mirror function in the wrapper.  For example, Get Deployment API maps to get_deployment.  There is also a Get in the Deployment Operations so we call that one get_deployment_operation.  
 
 To use the API and get the auth piece done you need to following:
 * Create their directory
