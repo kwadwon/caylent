@@ -66,5 +66,9 @@
     print("Dump_check_existence");
     var_dump($result);
 
+    $result = delete_deployment($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
+   
+    print("Dump_delete_deployment");
+    var_dump($result);
 
 ?>
