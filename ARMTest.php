@@ -20,9 +20,8 @@
     $access_token = get_auth_token( $a_tenant_id, $a_client_id, $a_client_secret);
 //    $result = create_resource_group($a_subscription_id,$a_resource_group_name,$access_token,$azure_datacenter_location);
 
-    var_dump($access_token);
 
-    $deployment_name = "FirstCaylentDeploymen3";
+    $deployment_name = "FirstCaylentDeployment3";
     $template_uri = "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-vm-simple-linux/azuredeploy.json";
     $adminUsername = "KwadwoTest";
     $adminPassword = "KwadwoTest123!!!";
@@ -83,6 +82,12 @@
 
     var_dump($result);
 
+
+    $result = get_deployment($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
+
+    print("Get_deployment");
+
+    var_dump($result);
 
 
 ?>

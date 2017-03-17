@@ -292,18 +292,19 @@
     function get_deployment($subscription_id, $resource_group_name, $deployment_name, $access_token)
     {
         //GET /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{deploymentName}?api-version=2016-09-01
-        throw new Exception('Not implemented');
                 
         // Initialize curl and set options
         $curl_opt_array = array(
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_HEADER => 0,
-            CURLOPT_URL => "https://management.azure.com/$subscription_id/resourcegroups/$resource_group_name/providers/Microsoft.Resources/deployments/$deployment_name?api-version=2016-09-01",
+            CURLOPT_URL => "https://management.azure.com/subscriptions/$subscription_id/resourcegroups/$resource_group_name/providers/Microsoft.Resources/deployments/$deployment_name?api-version=2016-09-01",
             CURLOPT_HTTPHEADER => array(
                 "Content-type: Application/json",
                 "Authorization: Bearer $access_token")
         );
+
+        var_dump($curl_opt_array);
 
         $resp = make_request($curl_opt_array);
         
