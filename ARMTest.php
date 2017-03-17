@@ -20,7 +20,9 @@
     $access_token = get_auth_token( $a_tenant_id, $a_client_id, $a_client_secret);
 //    $result = create_resource_group($a_subscription_id,$a_resource_group_name,$access_token,$azure_datacenter_location);
 
-    $deployment_name = "FirstCaylentDeployment4";
+    var_dump($access_token);
+
+    $deployment_name = "FirstCaylentDeploymen3";
     $template_uri = "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-vm-simple-linux/azuredeploy.json";
     $adminUsername = "KwadwoTest";
     $adminPassword = "KwadwoTest123!!!";
@@ -60,15 +62,27 @@
     //$operation_id = "172217CF8D5D74E9";
     //$result = get_deployment_operation($a_subscription_id, $a_resource_group_name, $deployment_name, $operation_id ,$access_token);
 
+    print("List deployments\n");
+    $result = list_deployments($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
+    var_dump($result);
+
+    print("Before check existence\n");
    
     $result = check_existence($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
 
     print("Dump_check_existence");
     var_dump($result);
 
-    $result = delete_deployment($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
+    //$result = delete_deployment($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
    
-    print("Dump_delete_deployment");
+    //print("Dump_delete_deployment");
+
+    $result = export_template($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
+
+    print("Dump_export_template");
+
     var_dump($result);
+
+
 
 ?>
