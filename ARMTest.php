@@ -18,6 +18,53 @@
     $azure_datacenter_location = "east us";
 
     $access_token = get_auth_token( $a_tenant_id, $a_client_id, $a_client_secret);
-    $result = create_resource_group($a_subscription_id,$a_resource_group_name,$access_token,$azure_datacenter_location);
+//    $result = create_resource_group($a_subscription_id,$a_resource_group_name,$access_token,$azure_datacenter_location);
+
+    $deployment_name = "FirstCaylentDeployment4";
+    $template_uri = "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-vm-simple-linux/azuredeploy.json";
+    $adminUsername = "KwadwoTest";
+    $adminPassword = "KwadwoTest123!!!";
+    $dnslabelPrefix = "caylentdeployment4";
+
+
+    /* Use arm template to create resources in created resource group */
+    $data = array(
+        "properties" => array(
+            "templateLink" => array(
+                "uri" => $template_uri,
+                "contentVersion" => "1.0.0.0"
+                ),
+            "mode" => "Incremental",
+            "parameters" => array(
+                "adminUsername" => array(
+                    "value" => $adminUsername
+                ),
+                "adminPassword" => array(
+                    "value" => $adminPassword
+                ),
+                "dnsLabelPrefix" => array(
+                    "value" => $dnslabelPrefix
+                )
+            )
+        )
+    );
+    $data_json = json_encode($data);
+
+  //  $result = create_or_update_deployment($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token, $data);
+
+    //var_dump($result);
+
+    //$result = get_list_deployment_operations($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
+
+    //var_dump($result);
+    //$operation_id = "172217CF8D5D74E9";
+    //$result = get_deployment_operation($a_subscription_id, $a_resource_group_name, $deployment_name, $operation_id ,$access_token);
+
+   
+    $result = check_existence($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
+
+    print("Dump_check_existence");
+    var_dump($result);
+
 
 ?>

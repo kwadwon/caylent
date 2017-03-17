@@ -1,10 +1,6 @@
 <?php
 
-
-    //print("Access token\n");
-    //var_dump( $access_token);
-
-    function make_request(array $request_array)
+    function make_request(array $request_array, $ret_code = null)
     {
 
         $curl  = curl_init();
@@ -14,16 +10,21 @@
         $resp = json_decode($result);
         
         print(curl_error($curl));
-
         print("\n");
+        print(curl_errno($curl));
+        print("\n");
+        $http_status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        print($http_status);
+        print("\n");
+        //print("Completed auth request with status of\n");
 
-        print("Completed auth request with status of\n");
-
-        var_dump($resp);
+        //var_dump($resp);
         
         curl_close($curl);
-
-        return $resp;
+        if ($ret_code)
+            return $http_status;
+        else 
+                return $resp;
 
 
     }
@@ -42,7 +43,7 @@
             ));
 
 
-        var_dump($curl_opt_array);
+        //var_dump($curl_opt_array);
 
         print("Make request for auth token\n");
         
@@ -76,7 +77,7 @@
 
         $resp = make_request($curl_opt_array);
         
-        print_r($resp);
+        //print_r($resp);
 
         return $resp;
 
@@ -112,7 +113,7 @@
     // );
     // $data_json = json_encode($data);
 
-    function create_or_update_deployment($subscription_id, $resource_group_name, $deployment_name, $data)
+    function create_or_update_deployment($subscription_id, $resource_group_name, $deployment_name, $access_token, $data)
     {
         $data_json = json_encode($data);
         // Initialize curl and set options
@@ -129,7 +130,7 @@
 
         $resp = make_request($curl_opt_array);
         
-        print_r($resp);
+        //print_r($resp);
 
         return $resp;
     }
@@ -144,7 +145,7 @@
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_HEADER => 0,
-            CURLOPT_URL => "https://management.azure.com/subscriptions/$a_subscription_id/resourcegroups/$resource_group_name/deployments/$deployment_name/operations?api-version=2016-09-01",
+            CURLOPT_URL => "https://management.azure.com/subscriptions/$subscription_id/resourcegroups/$resource_group_name/deployments/$deployment_name/operations?api-version=2016-09-01",
             CURLOPT_HTTPHEADER => array(
                 "Content-type: Application/json",
                 "Authorization: Bearer $access_token")
@@ -164,7 +165,7 @@
     {
         //GET /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/deployments/{deploymentName}/operations/{operationId}?api-version=2016-09-01
 
-              // Initialize curl and set options
+        // Initialize curl and set options
         $curl_opt_array = array(
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_RETURNTRANSFER => 1,
@@ -177,23 +178,61 @@
 
         $resp = make_request($curl_opt_array);
         
-        print_r($resp);
+        //print_r($resp);
 
         return $resp;
 
     }
   
-    function cancel_deployment()
+    function cancel_deployment($subscription_id, $resource_group_name, $deployment_name, $access_token)
     {
         //POST /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{deploymentName}/cancel?api-version=2016-09-01
-        throw new Exception('Not implemented');
+
+        // Initialize curl and set options
+        $curl_opt_array = array(
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_HEADER => 0,
+            CURLOPT_URL => "https://management.azure.com/subscriptions/$subscription_id/resourcegroups/$resource_group_name/deployments/$deployment_name/cancel?api-version=2016-09-01",
+            CURLOPT_HTTPHEADER => array(
+                "Content-type: Application/json",
+                "Authorization: Bearer $access_token")
+        );
+
+        $resp = make_request($curl_opt_array);
+        
+        //print_r($resp);
+
+        return $resp;
+
+
     }
 
-    function check_existence()
+    function check_existence($subscription_id, $resource_group_name, $deployment_name, $access_token)
     {
         
         //HEAD /subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{deploymentName}?api-version=2016-09-01
-        throw new Exception('Not implemented');
+
+        // Initialize curl and set options
+        $curl_opt_array = array(
+            CURLOPT_CUSTOMREQUEST => "HEAD",
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_HEADER => 0,
+            CURLOPT_URL => "https://management.azure.com/subscriptions/$subscription_id/resourcegroups/$resource_group_name/deployments/$deployment_name?api-version=2016-09-01",
+            CURLOPT_HTTPHEADER => array(
+                "Content-type: Application/json",
+                "Authorization: Bearer $access_token")
+        );
+
+        $resp = make_request($curl_opt_array,true);
+        
+        print("Response from check_existence\n");
+        print_r($resp);
+        print("after Response from check_existence\n");
+
+        return $resp;
+
+
     }
 
     function delete_deployment()
