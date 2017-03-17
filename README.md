@@ -14,6 +14,7 @@ This README would normally document whatever steps are necessary to get your app
 The [Azure Resource Management API's](https://docs.microsoft.com/en-us/rest/api/resources/) [Deployment operations](https://docs.microsoft.com/en-us/rest/api/resources/deploymentoperations) and [Deployments](https://docs.microsoft.com/en-us/rest/api/resources/deployments) are all wrapped in the [AzureARMRESTAPI.php](AzureARMRESTAPI.php) file.  This is a flat implementation right over the REST API rather some object oriented wrapper.  If you look at the code you'll see that each API function has a mirror function in the wrapper.  For example, Get Deployment API maps to get_deployment.  There is also a Get in the Deployment Operations so we call that one get_deployment_operation.  
 
 To use the API and get the auth piece done you need to following:
+
 * Create their directory
 * Define an app in that directory
 * Define an access key for the app
@@ -22,6 +23,7 @@ To use the API and get the auth piece done you need to following:
 How do you do this?  Read [Use portal to create Active Directory application and service principal that can access resources](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-service-principal-portal)
 
 To use this API you need a couple pieces of information:
+
 * Users Tenant
 * Users Subscription
 * Users Key
