@@ -61,33 +61,51 @@
     //$operation_id = "172217CF8D5D74E9";
     //$result = get_deployment_operation($a_subscription_id, $a_resource_group_name, $deployment_name, $operation_id ,$access_token);
 
-    print("List deployments\n");
-    $result = list_deployments($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
-    var_dump($result);
+    // print("List deployments\n");
+    // $result = list_deployments($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
+    // var_dump($result);
 
-    print("Before check existence\n");
+    // print("Before check existence\n");
    
-    $result = check_existence($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
+    // $result = check_existence($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
 
-    print("Dump_check_existence");
-    var_dump($result);
+    // print("Dump_check_existence");
+    // var_dump($result);
 
-    //$result = delete_deployment($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
+    // //$result = delete_deployment($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
    
-    //print("Dump_delete_deployment");
+    // //print("Dump_delete_deployment");
 
-    $result = export_template($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
+    // $result = export_template($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
 
-    print("Dump_export_template");
+    // print("Dump_export_template");
+
+    // var_dump($result);
+
+
+    // $result = get_deployment($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
+
+    // print("Get_deployment");
+
+    // var_dump($result);
+
+    $result = list_subscriptions($access_token);
 
     var_dump($result);
 
+    $sub_id = $result;
+    print gettype($result);
+    print("\n");
+    var_dump(get_object_vars($result) );
+    print("\n");
+    var_dump($result->$displayName);
 
-    $result = get_deployment($a_subscription_id, $a_resource_group_name, $deployment_name, $access_token);
-
-    print("Get_deployment");
+    $result = get_subscription($result->subscriptionId,$access_token);
 
     var_dump($result);
 
+    //$result = list_locations("b3afec2e-9c6f-47ae-a618-5fcc40246287",$access_token);
+
+    //var_dump($result)
 
 ?>
