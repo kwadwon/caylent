@@ -93,19 +93,14 @@
 
     var_dump($result);
 
-    $sub_id = $result;
-    print gettype($result);
-    print("\n");
-    var_dump(get_object_vars($result) );
-    print("\n");
-    var_dump($result->$displayName);
+    $sub_id = $result->value[0]->subscriptionId;
 
-    $result = get_subscription($result->subscriptionId,$access_token);
+    $result = get_subscription($sub_id,$access_token);
 
     var_dump($result);
 
-    //$result = list_locations("b3afec2e-9c6f-47ae-a618-5fcc40246287",$access_token);
+    $result = list_locations($sub_id,$access_token);
 
-    //var_dump($result)
+    var_dump($result)
 
 ?>
