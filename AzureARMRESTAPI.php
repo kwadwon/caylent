@@ -458,7 +458,7 @@
 // https://docs.microsoft.com/en-us/rest/api/resources/resources
 //******************
 //https://docs.microsoft.com/en-us/rest/api/resources/resources#Resources_GetById
-    function get_by_id($resource_id, $access_token,$api_version = "2016-90-01")
+    function get_by_id($resource_id, $access_token,$api_version = "2016-00-01")
     {
 
         //why the default value for API version?  I found that Virtul machines in east us2, I needed
