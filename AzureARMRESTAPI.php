@@ -453,5 +453,35 @@
 
     }
 
+//******************
+// THESE ARE THE FUNCTONS THAT ARE PART OF THE RESOURCES PORTION OF THE RESOURCE MANAGER REST INTERFACE
+// https://docs.microsoft.com/en-us/rest/api/resources/resources
+//******************
+//https://docs.microsoft.com/en-us/rest/api/resources/resources#Resources_GetById
+    function get_by_id($resource_id, $access_token,$api_version = "2016-90-01")
+    {
+
+        //why the default value for API version?  I found that Virtul machines in east us2, I needed
+        // api version 2017-03-30 for it to work so we made it an optional parm
+        //GET GET /{resourceId}?api-version=2016-09-01
+
+        // Initialize curl and set options
+        $curl_opt_array = array(
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_HEADER => 0,
+            CURLOPT_URL => "https://management.azure.com/$resource_id?api-version=$api_version",
+            CURLOPT_HTTPHEADER => array(
+                "Content-type: Application/json",
+                "Authorization: Bearer $access_token")
+        );
+
+        $resp = make_request($curl_opt_array);
+        
+        //print_r($resp);
+
+        return $resp;
+
+    }
 
 ?>
