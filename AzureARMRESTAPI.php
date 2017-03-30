@@ -484,4 +484,68 @@
 
     }
 
+//******************
+// THESE ARE THE FUNCTONS THAT ARE PART OF THE PROVIDERS PORTION OF THE RESOURCE MANAGER REST INTERFACE
+// https://docs.microsoft.com/en-us/rest/api/resources/providers
+//******************
+//https://docs.microsoft.com/en-us/rest/api/resources/providers#Providers_List
+    function list_providers($subscription_id, $access_token,$toparg =null,$expandarg =null)
+    {
+
+        $url = "https://management.azure.com/subscriptions/$subscription_id/providers?api-version=2016-09-01";
+
+        if ($toparg) $url .= "&\$top=$toparg";
+
+        if ($expandarg) $url .= "&\$expand=$expandarg";
+
+        //GET /subscriptions/{subscriptionId}/providers?api-version=2016-09-01[&$top&$expand]
+
+        // Initialize curl and set options
+        $curl_opt_array = array(
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_HEADER => 0,
+            CURLOPT_URL => $url,
+            CURLOPT_HTTPHEADER => array(
+                "Content-type: Application/json",
+                "Authorization: Bearer $access_token")
+        );
+
+        $resp = make_request($curl_opt_array);
+        
+        //print_r($resp);
+
+        return $resp;
+
+    }
+
+//https://docs.microsoft.com/en-us/rest/api/resources/providers#Providers_Get
+    function get_provider($subscription_id,$resource_provider_namespace, $access_token,$expandarg =null)
+    {
+
+        $url = "https://management.azure.com/subscriptions/$subscription_id/providers/$resource_provider_namespace?api-version=2016-09-01";
+
+        if ($expandarg) $url .= "&\$expand=$expandarg";
+
+        // GET /subscriptions/{subscriptionId}/providers/{resourceProviderNamespace}?api-version=2016-09-01[&$expand] 
+
+        // Initialize curl and set options
+        $curl_opt_array = array(
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_HEADER => 0,
+            CURLOPT_URL => $url,
+            CURLOPT_HTTPHEADER => array(
+                "Content-type: Application/json",
+                "Authorization: Bearer $access_token")
+        );
+
+        $resp = make_request($curl_opt_array);
+        
+        //print_r($resp);
+
+        return $resp;
+
+    }
+
 ?>
