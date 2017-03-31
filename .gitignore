@@ -1,6 +1,4 @@
 vendor
-lb.json
-lb.parameters.json
 vmss.json
 vmss.parameters.json
 vpc.json  
